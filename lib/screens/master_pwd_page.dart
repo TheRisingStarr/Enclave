@@ -32,7 +32,7 @@ class _MasterPwdPageState extends State<MasterPwdPage> {
 
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => EnclaveHome(entries: entries)),
+        MaterialPageRoute(builder: (context) => EnclaveHome()),
       );
     } catch (e) {
       if (!mounted) return;
