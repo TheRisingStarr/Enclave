@@ -33,7 +33,11 @@ class EntryTile extends StatelessWidget {
                   color: colors.primaryContainer,
                   borderRadius: BorderRadius.circular(18),
                 ),
-                child: Icon(Icons.key_rounded, color: colors.primary, size: 28),
+                child: Icon(
+                  Icons.key_rounded,
+                  color: colors.primary,
+                  size: 28,
+                ),
               ),
 
               const SizedBox(width: 16),
