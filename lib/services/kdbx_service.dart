@@ -40,6 +40,23 @@ class KdbxService {
       password: entry.getString(KdbxKeyCommon.PASSWORD)?.getText() ?? '',
       url: entry.getString(KdbxKeyCommon.URL)?.getText() ?? '',
       notes: entry.getString(KdbxKey('Notes'))?.getText() ?? '',
+
+      totpSecret: entry.getString(KdbxKey('TimeOtp-Secret-Base32'))?.getText(),
+
+      totpAlgorithm:
+          entry.getString(KdbxKey('TimeOtp-Algorithm'))?.getText() ?? 'SHA1',
+
+      totpDigits:
+          int.tryParse(
+            entry.getString(KdbxKey('TimeOtp-Length'))?.getText() ?? '',
+          ) ??
+          6,
+
+      totpPeriod:
+          int.tryParse(
+            entry.getString(KdbxKey('TimeOtp-Period'))?.getText() ?? '',
+          ) ??
+          30,
     );
   }
 }
