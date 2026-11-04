@@ -26,13 +26,16 @@ class _MasterPwdPageState extends State<MasterPwdPage> {
         password: pwdControl.text,
       );
 
-      final entries = kdbxService.readEntries(database);
-
+      final rootGroup = kdbxService.readRootGroup(database);
       if (!mounted) return;
 
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => EnclaveHome(entries: entries)),
+        MaterialPageRoute(
+          builder: (context) => EnclaveHome(
+            rootGroup: rootGroup,
+          ),
+        ),
       );
     } catch (e) {
       if (!mounted) return;

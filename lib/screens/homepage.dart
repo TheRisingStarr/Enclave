@@ -1,12 +1,19 @@
 import 'package:enclave/screens/entries_screen.dart';
 import 'package:material_3_expressive/material_3_expressive.dart';
 import 'package:material_ui/material_ui.dart';
-import 'package:enclave/models/entry_model.dart';
 import 'package:enclave/widgets/entry_tile.dart';
+import 'package:enclave/models/group_model.dart';
+import 'package:enclave/widgets/group_tile.dart';
 
 class EnclaveHome extends StatefulWidget {
-  const EnclaveHome({super.key, required this.entries});
-  final List<EntryModel> entries;
+  final GroupModel rootGroup;
+  final GroupModel? currentGroup;
+
+  const EnclaveHome({
+    super.key,
+    required this.rootGroup,
+    this.currentGroup,
+  });
 
   @override
   State<EnclaveHome> createState() => _EnclaveHomeState();
@@ -15,8 +22,8 @@ class EnclaveHome extends StatefulWidget {
 class _EnclaveHomeState extends State<EnclaveHome> {
   @override
   Widget build(BuildContext context) {
-    final theme = M3ETheme.of(context);
-    final colors = theme.colorScheme;
+    final colors = M3ETheme.of(context).colorScheme;
+    final group = widget.currentGroup ?? widget.rootGroup;
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -47,10 +54,7 @@ class _EnclaveHomeState extends State<EnclaveHome> {
             height: 46,
             margin: const EdgeInsets.only(right: 16),
             padding: const EdgeInsets.symmetric(horizontal: 6),
-            decoration: BoxDecoration(
-              color: colors.secondaryContainer,
-              borderRadius: BorderRadius.circular(30),
-            ),
+
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -72,15 +76,32 @@ class _EnclaveHomeState extends State<EnclaveHome> {
         ],
       ),
       body: ListView.builder(
-        padding: const EdgeInsets.only(
-          top: 8,
-          bottom: 24,
-        ),
-        itemCount: widget.entries.length,
+        padding: const EdgeInsets.only(top: 8, bottom: 24),
+        itemCount: group.groups.length + group.entries.length,
         itemBuilder: (context, index) {
-          final entry = widget.entries[index];
+          if (index < group.groups.length) {
+            final childGroup = group.groups[index];
 
-          return GestureDetector(
+            return GroupTile(
+              group: childGroup,
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => EnclaveHome(
+                      rootGroup: widget.rootGroup,
+                      currentGroup: childGroup,
+                    ),
+                  ),
+                );
+              },
+            );
+          }
+
+          final entry = group.entries[index - group.groups.length];
+
+          return EntryTile(
+            entry: entry,
             onTap: () {
               Navigator.push(
                 context,
@@ -89,9 +110,6 @@ class _EnclaveHomeState extends State<EnclaveHome> {
                 ),
               );
             },
-            child: EntryTile(
-              entry: entry,
-            ),
           );
         },
       ),
