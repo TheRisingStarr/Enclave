@@ -2,7 +2,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:android_file_picker/android_file_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-Future<void> selectDatabase() async {
+Future<bool> selectDatabase() async {
   final file = await FilePicker.pickFile(
     androidOptions: const FilePickerAndroidOptions(
       safOptions: AndroidSAFOptions(
@@ -13,12 +13,12 @@ Future<void> selectDatabase() async {
     ),
   );
 
-  if (file == null) {
-    return;
-  }
+  if (file == null) return false;
 
   final prefs = await SharedPreferences.getInstance();
 
   final uri = file.uri.toString();
   await prefs.setString('database_uri', uri);
+
+  return true;
 }
