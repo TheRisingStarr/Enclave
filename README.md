@@ -27,8 +27,6 @@ Enclave currently focuses on opening and reading existing databases. Editing and
 The project is under active development. Not all planned functionality is available yet.
 
 - Adding, editing, and deleting entries are not implemented.
-- Group and nested-group navigation is planned.
-- TOTP authenticator support is planned.
 - Service icons and additional entry details are planned.
 - Database creation and other advanced database-management features are not yet implemented.
 
