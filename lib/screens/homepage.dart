@@ -53,42 +53,44 @@ class _EnclaveHomeState extends State<EnclaveHome> {
     final visibleGroups = _showFolders ? sortedGroups : [];
 
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
         toolbarHeight: 72,
+
         title: const Text('Enclave'),
-        titleTextStyle: const TextStyle(
+
+        titleTextStyle: TextStyle(
           fontFamily: 'GoogleSansFlex',
           fontSize: 30,
           fontWeight: FontWeight.w700,
           letterSpacing: -0.6,
           height: 1.1,
-          color: Colors.black,
-          fontVariations: [
+          color: colors.onSurface,
+          fontVariations: const [
             FontVariation('opsz', 80),
             FontVariation('wdth', 400),
             FontVariation('GRAD', 40),
             FontVariation('ROND', 20),
           ],
         ),
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
+
+        backgroundColor: colors.surface,
+        foregroundColor: colors.onSurface,
         surfaceTintColor: Colors.transparent,
         elevation: 0,
         scrolledUnderElevation: 0,
+
         actions: [
           Container(
             height: 46,
             margin: const EdgeInsets.only(right: 16),
             padding: const EdgeInsets.symmetric(horizontal: 6),
-
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
                 IconButton(
                   tooltip: 'Search',
                   onPressed: () {},
-                  color: colors.onPrimaryContainer,
+                  color: colors.onSurfaceVariant,
                   icon: const Icon(Icons.search_rounded),
                 ),
 
@@ -108,6 +110,7 @@ class _EnclaveHomeState extends State<EnclaveHome> {
                           },
                           child: const Text('Name (A–Z)'),
                         ),
+
                         MenuItemButton(
                           trailingIcon: _sortOrder == 'Name (Z–A)'
                               ? const Icon(Icons.check)
@@ -122,6 +125,7 @@ class _EnclaveHomeState extends State<EnclaveHome> {
                       ],
                       child: const Text('Sort by'),
                     ),
+
                     MenuItemButton(
                       leadingIcon: const Icon(Icons.folder_outlined),
                       trailingIcon: _showFolders
@@ -145,7 +149,7 @@ class _EnclaveHomeState extends State<EnclaveHome> {
                           controller.open();
                         }
                       },
-                      color: colors.onPrimaryContainer,
+                      color: colors.onSurfaceVariant,
                       icon: const Icon(Icons.more_vert_rounded),
                     );
                   },
